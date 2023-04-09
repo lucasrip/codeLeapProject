@@ -125,4 +125,5 @@ width: 5rem;
 height: auto;
 padding: 0.5rem;
 gap:0.5rem;
+z-index: 9999999999999;
 `
