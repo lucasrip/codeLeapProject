@@ -115,7 +115,7 @@ export default function Posts()
           text={<img src={arrowDown} alt="click go to top page" title="click go to top page" />}
           action={()=> {
             window.scrollTo({
-            top:window.innerHeight,
+            top:99999999999999999,
             behavior: 'smooth',
           })
         }}
