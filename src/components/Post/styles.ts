@@ -89,6 +89,7 @@ export const Container = styled.div`
  div main
  {
   width: 100%;
+  word-break: break-all;
   height: auto;
   font-style: normal;
   font-weight: 400;
