@@ -63,7 +63,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
            alt='click for refrsh page' 
            title='click for refrsh page'
            onClick={()=> {
-  
+            setMinRange(0);
             setCurrentPageValue(1);
             changePage({
               limit:10,
@@ -135,7 +135,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
    
    <div>
    {
-      minRange >= 2 &&
+      minRange >= 3 &&
       (
          <PageButton
           onClick={()=> {
@@ -150,7 +150,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
      
    {
       
-      buttonsList.length > 0 &&(
+      buttonsList.length >= 2  &&(
       buttonsList.map(page =>{  
         const maskNumberPage = page + 1 ;
         if(maskNumberPage < minRange || maskNumberPage >= numberPages) return null
@@ -167,7 +167,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
    }
      
      {  
-      maxRange < numberPages - 1&&
+       minRange > 5&&
       <>    
          <PageButton
           onClick={()=> {
