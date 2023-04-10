@@ -23,7 +23,7 @@ export default function Pagination({numberPosts, changePage,limit=10, userNameFi
   
   const numberPages = Math.ceil(numberPosts / limit);
   const messagePages = `page: ${currentPageValue} / ${numberPages -1 < currentPageValue?1 : numberPages -1 }`
-
+   console.log(currentPageValue,messagePages)
   const nextPositions = (page:number) => page -  2;
   const lastPositions = (page:number) => page -  1;
 

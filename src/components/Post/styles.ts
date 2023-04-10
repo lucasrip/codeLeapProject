@@ -23,7 +23,7 @@ export const Container = styled.div`
   h2
   {
     
-    max-width: 60%;
+    max-width: 80%;
     word-break: break-all;
     height: auto;
     font-weight: 700;

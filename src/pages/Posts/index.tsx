@@ -177,8 +177,7 @@ export default function Posts()
          title='click for refrsh page'
          onClick={()=> searchPost({
           limit:10,
-          offset: 10,
-          username: '',
+          offset: 0,
         })}
         />
        <div>
