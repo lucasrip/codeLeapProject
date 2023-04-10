@@ -249,14 +249,7 @@ export default function Posts()
         />))
         :<p> not have a post cadastred</p>
       }
-
-      <Pagination
-       userNameFilter={userNameFilter}
-       limit={limit}
-       numberPosts={numberPosts}
-       changePage={(config:Search) => searchPost(config)}
-      />
-      
+   
      </Content>
  
    </Container>)
