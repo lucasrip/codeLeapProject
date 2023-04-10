@@ -3,7 +3,7 @@ import useStorage from "../../hooks/useStorage";
 import Post from "../../components/Post";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { Container, Content, ControllContainer, FiltersContainer, Header } from './styles';
+import { Container, Content, ControllContainer, Header } from './styles';
 import BoxContent from '../../components/BoxContent';
 import Button from '../../components/Button';
 import { useState } from 'react';
@@ -15,7 +15,6 @@ import Pagination from '../../components/Pagination';
 
 import arrowTop from '../../assets/arrowTop.svg';
 import arrowDown from '../../assets/arrowDown.svg';
-import refresh from '../../assets/refresh.svg';
 
 export default function Posts() 
 {
@@ -30,23 +29,17 @@ export default function Posts()
   const [ title , setTitle] = useState("");
   const [ content , setContent] = useState("");
   
-  const [ userNameFilter , setUserNameFilter] = useState("");
- 
+  
   const fieldLength= (title.length < 5 || content.length < 10 );
-
+  
   const isDisabled =fieldLength ? true: false; 
-
-  const searchDisplay =  userNameFilter.length < 5?true : false;
-
+  
   const [store , setStore] = useState<PostData[] | []>([]);
   const [numberPosts , setNumberPosts] = useState(0);
 
-  const [limit , setLimit] = useState(5);
- 
   const config = {
-    limit,
-    offset: 0 * limit,
-    username: userNameFilter,
+    limit: 10,
+    offset: 10,
   };
 
 
@@ -62,7 +55,7 @@ export default function Posts()
   const {mutate:sendPost , isLoading:sendPostLoading } = useMutation((post:SendPost) => submitPost(post),{
     onSuccess:() => {
       toast.success("successfully saved post");
-      searchPost(config);
+      searchPost({limit:10, offset:0});
       setTitle("");
       setContent("");
     } ,
@@ -87,7 +80,7 @@ export default function Posts()
     }
     searchPost(config);
     
-  },[searchPost])
+  },[])
 
    const isLoading = ( searchPostLoading || sendPostLoading)
 
@@ -170,71 +163,8 @@ export default function Posts()
             </footer>
       </BoxContent>
      
-      <FiltersContainer>
-        <img 
-         src={refresh}
-         alt='click for refrsh page' 
-         title='click for refrsh page'
-         onClick={()=> searchPost({
-          limit:10,
-          offset: 0,
-        })}
-        />
-       <div>
-        <label htmlFor="perUser">filter for userName</label>
-        <input 
-         value={userNameFilter}
-         type="text" 
-         name="perUser" 
-         id="perUser" 
-          onChange={ (e) => setUserNameFilter(e.target.value)}
-         />
-        <Button
-          disabled={searchDisplay}
-          title={{
-            disabled: 'you need digit five or more characters for search',
-            noDisabled:"press to searchPost"
-          }}
-          text='Search'
-          action={()=> { 
-            searchPost(config);
-            setUserNameFilter("")
-          }}
-        
-         />
-       </div>
-       <div>
-        <label htmlFor="perLimit">
-          select a limit post 
-        </label>
-        <select
-         name="perLimit" 
-         id="perLimit"
-         onChange={(e) => {
-          const newLimit =parseInt(e.target.value)
-          setLimit(newLimit); 
-          
-          searchPost({
-            limit: newLimit,
-            offset: 0 * newLimit,
-            username: userNameFilter
-          });
-         }
-        }
-         >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-        </select>
-       </div>
-
-      </FiltersContainer>
-
       <Pagination
-       userNameFilter={userNameFilter}
-       limit={limit}
+       isFilter={true}
        numberPosts={numberPosts}
        changePage={(config:Search) => searchPost(config)}
       />

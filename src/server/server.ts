@@ -6,7 +6,7 @@ export async function getPosts({limit,offset,username}:Search = {limit:0,offset:
 {
    const isUsername = username === undefined || username === null?'': `&username=${username || ''}`;
  
-   return await api.get(`careers/?limit=${limit}&offset=${offset} ${isUsername}`);  
+   return await api.get(`careers/?limit=${limit}&offset=${offset}${isUsername}`);  
 }
 
 export async function submitPost(post:SendPost)
