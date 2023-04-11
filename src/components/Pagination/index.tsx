@@ -17,10 +17,8 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
 {
 
   const [ userNameFilter , setUserNameFilter] = useState("");
-  const searchDisplay =  userNameFilter.length < 5?true : false;
   const [limit , setLimit] = useState(5);
-
-
+  
   const [minRange, setMinRange] = useState(0);
   const [currentPageValue, setCurrentPageValue] = useState(1);
   
@@ -56,20 +54,13 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
    <Container>
    
   {
-    (isFilter && numberPages > 0 ) &&(
+    (isFilter) &&(
       <FiltersContainer>
       <img 
            src={refresh}
            alt='click for refrsh page' 
            title='click for refrsh page'
-           onClick={()=> {
-            setMinRange(0);
-            setCurrentPageValue(1);
-            changePage({
-              limit:10,
-              offset: 0,
-            })
-           }}
+           onClick={()=> handleChangePage(currentPageValue)}
           />
        <div>
         <label htmlFor="perUser">filter for userName</label>
@@ -82,20 +73,15 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
           />
          
           <Button
-           disabled={searchDisplay}
+  
            title={{
             disabled: 'you need digit five or more characters for search',
             noDisabled:"press to searchPost"
            }}
            text='Search'
-           action={()=> { 
-            changePage({
-             limit,
-             offset:0,
-             username:userNameFilter
-             });
-
-             setCurrentPageValue(1);
+           action={()=>{
+            handleChangePage(1);
+            setUserNameFilter("");
            }}
    
           />
@@ -109,16 +95,8 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
                 name="perLimit" 
                 id="perLimit"
                 onChange={(e) => {
-                 const newLimit =parseInt(e.target.value);
-                 setLimit(newLimit);
-                 setMinRange(0);
-                 setCurrentPageValue(1);
-      
-                 changePage({
-                  limit: newLimit,
-                  offset: 0,
-                 });
-
+                 setLimit(parseInt(e.target.value));
+                 handleChangePage(1);
                 }
                }
               >
