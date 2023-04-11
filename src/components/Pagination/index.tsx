@@ -98,7 +98,8 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
                   const newLimit =parseInt(e.target.value);
                   setLimit(newLimit);
                   changePage({limit:newLimit,offset:0,username:userNameFilter})
-              
+                  setMinRange(0);
+                  setCurrentPageValue(1);
                 }
                }
               >
