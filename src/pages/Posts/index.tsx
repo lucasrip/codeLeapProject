@@ -169,7 +169,7 @@ export default function Posts()
       />
 
       {
-       store?store?.map((post:PostData) => (
+       store.length > 0 ?store?.map((post:PostData) => (
        <Post
          updatePost={()=> searchPost(config)}
          key={post?.id}

@@ -56,7 +56,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
    <Container>
    
   {
-    isFilter&&(
+    (isFilter && numberPages > 0 ) &&(
       <FiltersContainer>
       <img 
            src={refresh}
