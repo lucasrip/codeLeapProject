@@ -4,7 +4,8 @@ import { api } from './../hooks/axios/index';
 
 export async function getPosts({limit,offset,username}:Search = {limit:0,offset:0, username:''})
 {
-   const isUsername = username === undefined || username === null?'': `&username=${username || ''}`;
+
+   const isUsername = username?`&username=${username || ''}`:'';
  
    return await api.get(`careers/?limit=${limit}&offset=${offset}${isUsername}`);  
 }

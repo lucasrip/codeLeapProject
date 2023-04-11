@@ -38,8 +38,8 @@ export default function Posts()
   const [numberPosts , setNumberPosts] = useState(0);
 
   const config = {
-    limit: 10,
-    offset: 10,
+    limit: 5,
+    offset: 0,
   };
 
 
@@ -55,7 +55,7 @@ export default function Posts()
   const {mutate:sendPost , isLoading:sendPostLoading } = useMutation((post:SendPost) => submitPost(post),{
     onSuccess:() => {
       toast.success("successfully saved post");
-      searchPost({limit:10, offset:0});
+      searchPost(config);
       setTitle("");
       setContent("");
     } ,
@@ -66,7 +66,6 @@ export default function Posts()
     onSuccess:(data:any) =>{ 
       setStore(data.data.results);
       setNumberPosts(data.data.count);
-      
     } ,
     onError: () => {toast.error("there was an unexpected error please try again later")},
   });
@@ -170,7 +169,7 @@ export default function Posts()
       />
 
       {
-       store.length?store?.map((post:PostData) => (
+       store?store?.map((post:PostData) => (
        <Post
          updatePost={()=> searchPost(config)}
          key={post?.id}

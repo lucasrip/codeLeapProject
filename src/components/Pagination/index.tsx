@@ -28,20 +28,20 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
   const maxRange = minRange + buttonsRange;
   
   const numberPages = Math.ceil(numberPosts / limit);
-  const messagePages = `page: ${currentPageValue} / ${numberPages -1 < currentPageValue?1 : numberPages -1 }`
+  
+  const messagePages = `page: ${currentPageValue} / ${numberPages }`
 
   const nextPositions = (page:number) => page -  2;
   const lastPositions = (page:number) => page -  1;
 
-  const buttonsList = Array.from({length:maxRange},(_,value:number)=> value ).slice(minRange , maxRange);
+  const buttonsList = Array.from({length:maxRange},(_,value:number)=> value + 1 ).slice(minRange , maxRange);
 
   function handleChangePage(page:number)
   {
-    const offset = (limit * (page == 1?0:page));
+    const offset = (limit * page) - limit ;
     setCurrentPageValue(page);
     changePage({limit,offset, username:userNameFilter})
     const controllMaxButtons =((page - 2) + buttonsRange) > numberPages ;
-    
     if(controllMaxButtons)return null
     if(page == 1)
     {
@@ -94,7 +94,8 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
              offset:0,
              username:userNameFilter
              });
-             setUserNameFilter("")
+
+             setCurrentPageValue(1);
            }}
    
           />
@@ -112,12 +113,12 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
                  setLimit(newLimit);
                  setMinRange(0);
                  setCurrentPageValue(1);
-                 
+      
                  changePage({
                   limit: newLimit,
-                  offset: 1 * newLimit,
-                  username: userNameFilter
+                  offset: 0,
                  });
+
                 }
                }
               >
@@ -139,8 +140,8 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
       (
          <PageButton
           onClick={()=> {
-            const firstPage =  1;
-            handleChangePage(firstPage);
+            changePage({limit,offset:0, username:userNameFilter});
+
           }}
          >
            <img src={ doubleArrowLeft } alt="click go to the first page" />
@@ -150,16 +151,15 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
      
    {
       
-      buttonsList.length >= 2  &&(
+      buttonsList.length >  1  &&(
       buttonsList.map(page =>{  
-        const maskNumberPage = page + 1 ;
-        if(maskNumberPage < minRange || maskNumberPage >= numberPages) return null
+        if(page > numberPages) return null
          return (
           <PageButton 
-           key={maskNumberPage}
-           onClick={() => handleChangePage(maskNumberPage)}
+           key={page}
+           onClick={() => handleChangePage(page)}
           >
-          {maskNumberPage}
+          {page}
         </PageButton>
          )
        })
@@ -167,15 +167,15 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
    }
      
      {  
-       minRange > 5&&
+      maxRange < numberPages &&
       <>    
          <PageButton
           onClick={()=> {
-            const lastPage = numberPages-1 ;
-            const offset = (limit * lastPage );
-            setMinRange(lastPage - buttonsRange);
+      
+            const offset = ((limit * numberPages) - limit) ;
+            setMinRange((numberPages - buttonsRange));
             changePage({limit,offset, username:userNameFilter})
-            setCurrentPageValue(lastPage);
+            setCurrentPageValue(numberPages);
           }}
          >
            <img src={ doubleArrowRight } alt="click go to the last page" />
