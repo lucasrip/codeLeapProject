@@ -139,10 +139,7 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
       minRange >= 3 &&
       (
          <PageButton
-          onClick={()=> {
-            changePage({limit,offset:0, username:userNameFilter});
-
-          }}
+          onClick={()=> handleChangePage(1) }
          >
            <img src={ doubleArrowLeft } alt="click go to the first page" />
          </PageButton>   
