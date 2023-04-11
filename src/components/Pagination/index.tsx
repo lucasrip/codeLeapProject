@@ -95,8 +95,10 @@ export default function Pagination({numberPosts, changePage , isFilter=false}:Pr
                 name="perLimit" 
                 id="perLimit"
                 onChange={(e) => {
-                 setLimit(parseInt(e.target.value));
-                 handleChangePage(1);
+                  const newLimit =parseInt(e.target.value);
+                  setLimit(newLimit);
+                  changePage({limit:newLimit,offset:0,username:userNameFilter})
+              
                 }
                }
               >
