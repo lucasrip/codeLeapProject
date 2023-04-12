@@ -10,7 +10,6 @@ export const Container = styled.div`
  display: flex;
  flex-direction:column;
  justify-content:center;
-
 `;
 
 export const Content = styled.div`
@@ -21,7 +20,13 @@ export const Content = styled.div`
  flex-direction:column;
  align-items:center;
  gap:24px;
- padding: 24px;
+ padding: 1.5rem;
+ @media (max-width:350px)
+ {
+  &{
+    padding: 0.5rem;
+  }
+ }
 `;
 
 export const Header = styled.header`

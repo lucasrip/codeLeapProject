@@ -94,4 +94,12 @@ footer
 {
   margin-top:2.5rem ;
 }
+ @media (max-width:350px)
+ {
+  &{
+    width: 80%;
+
+  }
+ }
+
 `;

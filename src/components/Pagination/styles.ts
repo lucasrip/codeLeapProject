@@ -3,7 +3,6 @@ import { colors } from './../../globalStyles/colors';
 
 export const Container = styled.div`
  width:46.875rem;
- /* padding:0.5rem; */
  height:auto;
  display:flex;
  flex-direction:column;
@@ -34,6 +33,7 @@ export const Container = styled.div`
     font-weight:bold;
   }
  }
+
 `;
 
 export const PageButton = styled.button`

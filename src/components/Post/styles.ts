@@ -98,4 +98,24 @@ export const Container = styled.div`
   color:${colors.black};
  }
 
+ @media (max-width:350px)
+ {
+  &{
+    width: 85%;
+  }
+
+  header
+  {
+   padding:0 0.5rem;
+ 
+   & > div
+   {
+    padding:0 0.5rem;
+
+   }
+    
+  }
+ }
+
+
 `;
